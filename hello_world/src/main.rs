@@ -1,6 +1,9 @@
 ///associate greetings module with this crate
 mod greetings;
+
 extern crate hello_world_lib;
+
+
 ///Optionally oad each member of greetings
 /*use greetings::default_greeting;
 use greetings::spanish;
