@@ -17,7 +17,9 @@ use hello_world_lib::greeting_from_lib;
 use crate::how_you_hold_data_for_operations::{
     derived::user_defined::Compari, primitives::scalar_types::literals::compare,
 };
+use how_you_hold_data_for_operations::primitives::scalar_types::literals::run;
 
+use how_you_hold_data_for_operations::primitives::compound_types::array::multiplier;
 fn main() {
     println!("Hello, world!");
     println!("{}", default_greeting());
@@ -26,9 +28,18 @@ fn main() {
     println!("{}", greeting_from_lib());
 
     // how_you_hold_data_for_operations::primitives::scalar_types::literals::run();
-    how_you_hold_data_for_operations::primitives::scalar_types::literals::run();
+    run();
+    run();
 
-    how_you_hold_data_for_operations::primitives::scalar_types::literals::run();
+    let arr: [i32; 5] = [1, 2, 3, 4, 5];
+
+    multiplier(&[
+        arr[0] as f64,
+        arr[1] as f64,
+        arr[2] as f64,
+        arr[3] as f64,
+        arr[4] as f64,
+    ]);
 
     println!("{}", compare(10, 20, Compari::Greater))
 
