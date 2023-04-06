@@ -1,5 +1,6 @@
 ///associate greetings module with this crate
 mod greetings;
+mod how_you_hold_data_for_operations;
 
 extern crate hello_world_lib;
 
@@ -12,6 +13,11 @@ use greetings::french;*/
 ///Alternatively, load them in one line
 use greetings::{default_greeting, french, spanish};
 use hello_world_lib::greeting_from_lib;
+
+use crate::how_you_hold_data_for_operations::{
+    derived::user_defined::Compari, primitives::scalar_types::literals::compare,
+};
+
 fn main() {
     println!("Hello, world!");
     println!("{}", default_greeting());
@@ -19,13 +25,20 @@ fn main() {
     println!("{}", french::default_greeting());
     println!("{}", greeting_from_lib());
 
-    // Variables can be type annotated
-    let logical = true;
+    // how_you_hold_data_for_operations::primitives::scalar_types::literals::run();
+    how_you_hold_data_for_operations::primitives::scalar_types::literals::run();
 
-    let a_float = 1.0; //Regular annotation
-    let an_integer = 5i32;
+    how_you_hold_data_for_operations::primitives::scalar_types::literals::run();
 
-    // Or a default will be used
-    let default_float = 3.0;
-    let default_integer = 7;
+    println!("{}", compare(10, 20, Compari::Greater))
+
+    // // Variables can be type annotated
+    // let logical = true;
+
+    // let a_float = 1.0; //Regular annotation
+    // let an_integer = 5i32;
+
+    // // Or a default will be used
+    // let default_float = 3.0;
+    // let default_integer = 7;
 }
