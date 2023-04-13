@@ -14,6 +14,8 @@ use greetings::french;*/
 use greetings::{default_greeting, french, spanish};
 use hello_world_lib::greeting_from_lib;
 
+
+
 use crate::how_you_hold_data_for_operations::{
     derived::user_defined::Compari, primitives::scalar_types::literals::compare,
 };
@@ -41,7 +43,7 @@ fn main() {
         arr[4] as f64,
     ]);
 
-    println!("{}", compare(10, 20, Compari::Greater))
+    println!("{}", compare(10, 20, Compari::Greater));
 
     // // Variables can be type annotated
     // let logical = true;
@@ -52,4 +54,6 @@ fn main() {
     // // Or a default will be used
     // let default_float = 3.0;
     // let default_integer = 7;
+
+    hello_world_lib::run();
 }
