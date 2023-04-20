@@ -14,8 +14,6 @@ use greetings::french;*/
 use greetings::{default_greeting, french, spanish};
 use hello_world_lib::greeting_from_lib;
 
-
-
 use crate::how_you_hold_data_for_operations::{
     derived::user_defined::Compari, primitives::scalar_types::literals::compare,
 };
@@ -56,4 +54,5 @@ fn main() {
     // let default_integer = 7;
 
     hello_world_lib::run();
+    hello_world_lib::run2();
 }
