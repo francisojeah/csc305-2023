@@ -55,4 +55,5 @@ fn main() {
 
     hello_world_lib::run();
     hello_world_lib::run2();
+    hello_world_lib::run3();
 }

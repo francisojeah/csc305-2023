@@ -226,8 +226,10 @@ pub fn run() {
 
     let rectangle3 = rectangle1.clone();
 
+    // ..rectangle1 means that it takes all the data already present in rectangle1
     let rectangle4 = Rect { ..rectangle1 };
 
+    //here it takes all the data in rectangle1 except for length, which is assigned here
     let rectangle5 = Rect {
         length: 12f32,
         ..rectangle1
@@ -255,5 +257,40 @@ pub fn run2() {
     });
 
     //To handle the Shape2 as well (which is a trait)
-    println!("{}", rectangle1.area())
+    println!("{}", rectangle1.area());
+
+    let rectangle2 = Rect2::from("20.0,30.0,Rectangle2");
+    let rectangle3: Rect2 = "25.0,37.0,Rectangle3".into(); //this is the reverse of From
+
+    let s: String = rectangle3.into(); //this is the Info<String> trait impl. Explicit type declaration. This is a move
+    println!("About me: {}", s);
+    // println!("Area of Rectangle 3 = {}", rectangle3.area());
+
+    println!("Rectangle 1 = {:#?}", rectangle1);
+    println!("Area of Rectangle 2 = {}", rectangle2.area());
+}
+
+//Functions and Clourses
+
+//In Rust, functions have their own types
+
+//function to add 2 integers
+fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+
+fn apply(
+    f: fn(i32, i32) -> i32, //this is a parameter that is a function that returns a value of type i32
+    x: i32,
+    y: i32,
+) -> i32 {
+    f(x, y) //here, the parameters x and y are passed into whatever function is passed into f().
+}
+
+pub fn run3() {
+    let f = add;
+    let x = 7;
+    let y = 8;
+    let z = apply(f, x, y);
+    println!("The result of applying f to {} and {} is {}", x, y, z);
 }
