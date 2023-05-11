@@ -1,2 +1,13 @@
 [build]
-target="x86_64-unknown-none"
+#target="x86_64-unknown-none"
+target="x86_64-bootimage-barest.json"
+
+[unstable]
+build-std = ["core", "alloc", "compiler_builtins"]
+build-std-features = ["compiler-builtins-mem"]
+
+#qemu-system-x86_64 -drive format=raw,file=target/x86_64-bootimage-barest/debug/bootimage-barest.bin
+
+
+[target.'cfg(target_os = "none")']
+runner = "bootimage runner"

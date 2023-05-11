@@ -294,3 +294,41 @@ pub fn run3() {
     let z = apply(f, x, y);
     println!("The result of applying f to {} and {} is {}", x, y, z);
 }
+
+///let's define another function that handles straight line graph formula ///Assuminng that m, c and x have to be passed.
+///Here you can use a normal function.
+///Below, we have to use array slice as x, otherwise, we will need to specify a size.
+
+fn straight_line_function(m: i32, c: i32, xses: &[i32]) -> Vec<(i32, i32)> {
+    let mut output: Vec<(i32, i32)> = Vec::new(); //you could also use vec![] to bring in initial arguments
+    for x in xses {
+        let y = (m * x) + c;
+        output.push((*x, y)) //here we have to dereference the borrowed x, to get the value
+    }
+    output
+}
+
+pub fn run6() {
+    let mut x = 10;
+
+    println!("x before change = {}", x);
+
+    let y = &mut x; //y is a mutable reference to x
+    let z: *const u32 = y; // z is an immutable raw pointer to y which references x
+                           //let  a = y as *mut u32; a is a mutable raw pointer to y which references x
+    let a: *mut u32 = y; //a is a mutable raw pointer to y which references x
+
+    println!("y={:?}", y); //expect value in x
+    println!("z={:?}", z); //expect memory address
+    println!("a={:?}", a); //expect same memory address as z above
+
+    *y = 11; //expect value in x to change
+    println!("x after first change = {}", x);
+
+    unsafe {
+        *a = 12; //expect value in x to change
+        assert!(x == 12)
+    };
+
+    println!("x after second chage = {}", x);
+}
