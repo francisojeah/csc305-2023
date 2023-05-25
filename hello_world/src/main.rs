@@ -58,4 +58,18 @@ fn main() {
     hello_world_lib::run3();
 
     hello_world_lib::run7();
+
+    let numbers = [1.0, 2.3, 4.5];
+
+    match hello_world_lib::mature_multiplier(&numbers) {
+        Ok(val) => println!("{}", val),
+        Err(error) => println!("Error {}:{}", error.number, error.message),
+    }
+
+    match hello_world_lib::mature_multiplier(&[1.0]) {
+        Ok(val) => println!("{}", val),
+        Err(error) => println!("Error {}: {}", error.number, error.message),
+    }
+
+    println!("{}", hello_world_lib::mature_multiplier(&numbers).unwrap());
 }

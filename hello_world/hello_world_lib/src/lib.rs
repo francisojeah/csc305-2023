@@ -426,3 +426,27 @@ pub fn mature_multiplier(numbers: &[f64]) -> Result<f64, ErrorTypes> {
     }
     Ok(product)
 }
+
+pub fn run8() {
+    {
+        //s is not vaid here, it's not yet declared
+        let s = "hello"; //s is valid from the point forward
+
+        //do stuff with s
+    } //this scope is now over, and s is no longer valid
+
+    //above so far is all about stack. What about when we are dealing with
+    //heap allocated memory where for memory saving purposes, different variable can
+    //share the heap allocated memory?
+
+    {
+        let s = String::from("hello"); //s is valid from this point forward
+
+        //do stuff with s
+    } //this scope is now over, and s is no longer valid
+
+    /*
+    THere is a natural point at which we can return the memoryour
+    String needs to the allocator: when s goes out of scope.
+     */
+}
