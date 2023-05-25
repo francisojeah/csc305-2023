@@ -332,3 +332,97 @@ pub fn run6() {
 
     println!("x after second chage = {}", x);
 }
+
+pub fn run7() {
+    //Error handling
+    // panic!("You called panic");
+
+    //Illustraction Some
+    let mut v = vec!["a", "b", "c"];
+
+    //pop an element from the vector
+    let x = v.pop();
+
+    //if by your business value, you are sure that vec contains values i.e Option is Some, use unwrap to bring out the value
+    // expect does thesame thing as unwrap then it also provides an error message should incase there is no value to unwrap
+    println!("{}", x.unwrap());
+    println!("{}", x.expect("I expected a value from my vec"));
+
+    //what if we know there's a possiblity of having no Some value but we don't want to crash if we don't get a value
+    match x {
+        Some(value) => println!("we've got a value"),
+        None => println!("Your vector is empty"),
+    }
+
+    //compare above to
+    let mut v2: Vec<&str> = Vec::new();
+
+    //continue from phone
+    //let mut y2 = v2.pop().unwrap(); //will panic without message because it ...
+    //let mut y2 = v2.pop().expect("Do not call pop on an empty Vector"); //...
+
+    //Exercis: How can you ensure that your program does not panic when you ...
+    let y2 = match v2.pop() {
+        Some(val) => val,
+        None => "Empty vector",
+    };
+    println!("{}", y2);
+
+    //let's use ? for option
+    let mut v3 = vec![1, 2, 3];
+
+    //Closures(read up more)
+    //   - don't have to have names
+    //   - within a given scope where you define a function, that func cannot use variable defined
+    //     outside it unless they were passed to it. Closure can do this
+    let mut plus_one = || -> Option<i32> { Some(v3.pop()? + 1) };
+
+    println!("Plus one {}", plus_one().unwrap())
+}
+
+//Let's see Result instead of Option
+//Here it returns OK value vs Err, unlike Option that returns Some value
+
+//Adjust the following to return Result
+pub fn multiplier(numbers: &[f64]) -> f64 {
+    let mut product = 1f64;
+    for n in numbers {
+        product = product * n;
+    }
+    product
+}
+
+//what if we want to return Err to the caller of this functio when less
+//than two arguments are passed
+
+#[derive(Debug)]
+pub struct ErrorTypes {
+    pub number: u8,
+    pub message: &'static str,
+    pub detail: &'static str,
+}
+
+//Let's create static variables for error types
+const INVALID_ARG_LEN_ERR: ErrorTypes = ErrorTypes {
+    number: 101,
+    message: "Invalid Arg Length",
+    detail: "Two or more arguments are expected",
+};
+
+const INVALID_ARG_TYPE_ERR: ErrorTypes = ErrorTypes {
+    number: 102,
+    message: "Invalid Arg tYPE. f64 expected",
+    detail: "Invalid Arg Type. f64 expected. You must convert your arg to f64",
+};
+
+//mature multiplier
+pub fn mature_multiplier(numbers: &[f64]) -> Result<f64, ErrorTypes> {
+    if numbers.len() < 2 {
+        return Err(INVALID_ARG_LEN_ERR);
+    };
+    let mut product = 1f64;
+    for n in numbers {
+        product *= n;
+    }
+    Ok(product)
+}
