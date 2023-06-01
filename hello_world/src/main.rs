@@ -59,6 +59,10 @@ fn main() {
 
     hello_world_lib::run7();
 
+    hello_world_lib::run9();
+
+    hello_world_lib::run10();
+
     let numbers = [1.0, 2.3, 4.5];
 
     match hello_world_lib::mature_multiplier(&numbers) {

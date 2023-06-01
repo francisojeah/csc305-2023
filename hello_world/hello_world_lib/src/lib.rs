@@ -45,7 +45,7 @@ impl Shape for Rect {
     /// Not  amethod because it is not taking in self
 
     fn new(length: f32, width: f32, name: &'static str) -> Self {
-        // If the anme of the element is the same as the name of the variable, you can just write it alone like that
+        // If the name of the element is the same as the name of the variable, you can just write it alone like that
         Rect {
             length,
             width,
@@ -449,4 +449,77 @@ pub fn run8() {
     THere is a natural point at which we can return the memoryour
     String needs to the allocator: when s goes out of scope.
      */
+}
+
+#[macro_export] //in-built in Rust
+macro_rules! rectangles {
+    ($($rect_props_tuple:expr), *) => {
+        //I want to return a Vector of Rectangles
+        {
+            let mut rect_vec = Vec::new();
+            //take our expression received, get the length, width and name
+            //from each and create the appropriate Rect and push each
+            //to our rect_rec
+
+            $(let (length, width, name) = $rect_props_tuple;
+            let rect = Rect {
+                length: length as f32,
+                width: width as f32,
+                name: name as &str,
+            };
+            rect_vec.push(rect);
+        )*
+        rect_vec
+        }
+    };
+}
+
+//Try out our rectangle! declarative macro.
+pub fn run9() {
+    let rects = rectangles!((1, 1, "rect1"), (3.5, 7.0, "rect2"));
+    println!(
+        "Area of rectangle 1 = {}; area of rectangle 2 = {}",
+        rects[0].area(),
+        rects[1].area()
+    )
+}
+
+//You can also have multiple expressions in a declarative macro.
+//What if you want a second expression that contains defaults for
+//length, width and name for the rect
+//This implies that length, width and name will be optional.
+#[macro_export]
+macro_rules! rectangles_with_default {
+    (($($rect_props_tuple:expr), *), $default_tuple:expr) => {
+        {
+            let mut rect_vec = Vec::new();
+            let (default_length, default_width, default_name) = $default_tuple;
+            $(
+                let (length, width, name) = $rect_props_tuple;
+                let rect = Rect{
+                    length: if length.is_none() { default_length as f32}else{ length.unwrap() as f32},
+                    width: if width.is_none(){ default_width as f32 }else{ width.unwrap() as f32},
+                    name: if name.is_none(){ default_name as &str }else{ name.unwrap() as &str}
+                };
+                rect_vec.push(rect);
+            )*
+            rect_vec
+        }
+    };
+}
+
+pub fn run10() {
+    let rects = rectangles_with_default!(
+        (
+            (None as Option<u32>, Some(-1), Some("rect1")),
+            (Some(3.5), Some(7.0), None as Option<&str>)
+        ),
+        (1, 1, "default name")
+    );
+
+    println!(
+        "Area of rectangle 1 = {}; area of rectangle 2 = {}",
+        rects[0].area(),
+        rects[1].area()
+    )
 }
