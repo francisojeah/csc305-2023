@@ -523,3 +523,29 @@ pub fn run10() {
         rects[1].area()
     )
 }
+
+pub fn run11() {
+    use rect_shape::Shape;
+    use rect_shape_derive::Shape;
+
+    #[derive(Debug, Clone, Shape)]
+    struct RectWithDerivedShape {
+        length: f32,
+        width: f32,
+        name: &'static str,
+    }
+
+    //the Shape trait implementations
+    //should be available for RectWithDerivedShape
+    //without further explicit implementation
+
+    let rectangle1 = RectWithDerivedShape {
+        length: 1.0,
+        width: 2.0,
+        name: "Rect 1 with derived Shape trait",
+    };
+    println!(
+        "Area of rectangle1 with derived Shape = {}",
+        rectangle1.area()
+    );
+}
