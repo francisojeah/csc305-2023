@@ -1,0 +1,18 @@
+[package]
+name = "os_with_bootloader"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+
+[workspace]
+members = ["kernel_with_bootloader"]
+
+[build-dependencies]
+
+bootloader = "0.11.3"
+
+kernel_with_bootloader = { path = "kernel_with_bootloader", artifact = "bin", target = "x86_64-unknown-none" }
