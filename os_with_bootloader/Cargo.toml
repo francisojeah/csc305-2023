@@ -6,7 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-
+# used for UEFI booting in QEMU
+ovmf-prebuilt = "0.1.0-alpha.1"
 
 [workspace]
 members = ["kernel_with_bootloader"]
